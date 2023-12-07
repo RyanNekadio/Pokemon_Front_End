@@ -2,7 +2,7 @@ import { useState } from "react";
 import Kanto from "./Kanto";
 import { Link } from "react-router-dom";
 
-const CardsList = ({ sets, pokemons }) => {
+const CardsList = ({ sets, pokemons, onSelect }) => {
   const [selectedSet, setSelectedSet] = useState('');
 
   const handleSetChange = (event) => {

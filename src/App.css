@@ -92,7 +92,7 @@
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-around; Adjust as needed */
+  justify-content: space-around; 
 }
 
 .card {

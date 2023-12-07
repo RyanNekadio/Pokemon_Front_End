@@ -23,7 +23,9 @@ const PokemonContainer = () => {
     fetchData();
   }, []);
 
-  // const ashKanto = ['Pikachu', 'Butterfree', 'Bulbasaur', 'Charmander', 'Pidgeot'];
+  const handleSelectedSet = (set) => {
+    setSelectedSet(set);
+  };
 
   return (
     <Router>
@@ -34,7 +36,7 @@ const PokemonContainer = () => {
             element={<Home />} />
           <Route
             path="/sets"
-            element={<CardsList pokemons={pokemon} sets={sets} />} 
+            element={<CardsList pokemons={pokemon} sets={sets} onSelect={handleSelectedSet} />} 
           />
           <Route 
             path="/pokemon-world" 
