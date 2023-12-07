@@ -5,11 +5,8 @@ const Home = () => {
   return (
     <div>
       <h1 className="webName">Welcome to the Pokemon App!</h1>
-      <Link to="/sets">
-        <button>Sets</button>
-      </Link>
-      <Link to="/pokemon-world">
-        <button>Pokemon World</button>
+      <Link to="/cards-list">
+        <button>Cards</button>
       </Link>
       <hr />
     </div>

@@ -1,37 +1,94 @@
 import { useState, useEffect } from "react";
 import Home from "../components/Home";
 import CardsList from "../components/CardsList";
-import PokemonWorldForm from "../components/PokemonWorldForm"; // Import the PokemonWorldForm component
+import Cards from "../components/Cards";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; //previous import
 // import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const PokemonContainer = () => {
-  const [pokemon, setPokemon] = useState([]); 
-  const [sets, setSets] = useState([]);
-  const [selectedSet, setSelectedSet] = useState('');
+  const [backupPokemon, setBackupPokemon] = useState([]); 
+  // const [displayPokemon, setDisplayPokemon] = useState([]); 
+  const [cardSets, setCardSets] = useState([]);
+  const [selectedCardSet, setSelectedCardSet] = useState('');
 
-  // Fetch the data
+  // Fetch the  cards data
   const fetchData = async () => {
       const cardsResponse = await fetch('https://api.pokemontcg.io/v2/cards');
       const cardsData = await cardsResponse.json();
-      setPokemon(cardsData.data); 
+      setBackupPokemon(cardsData.data); 
   }
 
   // Fetch the sets data
-  const fetchSetsData = async () => {
-      const setsResponse = await fetch('https://api.pokemontcg.io/v2/sets');
-      const setsData = await setsResponse.json();
-      setSets(setsData.data);
+  const fetchCardSetsData = async () => {
+      const cardSetsResponse = await fetch('https://api.pokemontcg.io/v2/sets');
+      const cardSetsData = await cardSetsResponse.json();
+      setCardSets(cardSetsData.data);
   }
 
   useEffect(() => {
     fetchData();
-    fetchSetsData();
+    fetchCardSetsData();
   }, []);
 
-  const handleSelectedSet = (set) => {
-    setSelectedSet(set);
+  //event listener for set dropdown list
+  const handleCardSetChange = (e) => {
+    const value = e.target.value;
+    setSelectedCardSet(value);
   };
+  //event listener
+  const handleSelectedSet = (set) => {
+    setSelectedCardSet(set);
+  };
+  //gets the names of each set from set api
+  const setsWithPokemon = cardSets.filter((set) => {
+    return backupPokemon.some(pokemon => pokemon.set.id === set.id)
+  })
+  
+  const setOptions = setsWithPokemon.map((set) => (
+    <option key={set.id} value={set.id}>
+      {set.name}
+    </option>
+  ));
+
+  const filteredPokemon = selectedCardSet ? backupPokemon.filter((pokemon) => pokemon.set.id === selectedCardSet) : backupPokemon;
+
+  //display all cards using backupPokemon
+  const pokemonCards = filteredPokemon.map((pokemon) => (
+    <Cards key={pokemon.id} pokemon={pokemon} />
+  ));
+
+  return (
+    <Router>
+      <>
+        <Routes>
+          <Route 
+            path="/" 
+            element={<Home />} />
+          <Route
+            path="/cards-list"
+            element={<CardsList pokemon={pokemonCards} sets={cardSets} onSelect={selectedCardSet} setOptions={setOptions} onChange={handleCardSetChange} />} 
+          />
+        </Routes>
+      </>
+    </Router>
+  );
+};
+
+export default PokemonContainer;
+
+  // const regions = ['Kanto', 'Johto', 'Hoenn'];
+
+  // const handleRegionChange = (event) => {
+  //   const value = event.target.value;
+  //   setSelectedRegion(value);
+  // };
+
+  // const regionOptions = regions.map((region, index) => (
+  //   <option key={index} value={region}>
+  //     {region}
+  //   </option>
+  // ));
+
 
   // Router
   // const pokemonRoutes = createBrowserRouter ([
@@ -50,28 +107,4 @@ const PokemonContainer = () => {
   //   }
   // ])
 
-
-
-
-  return (
-    <Router>
-      <>
-        <Routes>
-          <Route 
-            path="/" 
-            element={<Home />} />
-          <Route
-            path="/sets"
-            element={<CardsList pokemons={pokemon} sets={sets} onSelect={handleSelectedSet} />} 
-          />
-          <Route 
-            path="/pokemon-world" 
-            element={<PokemonWorldForm />} />
-        </Routes>
-      </>
-    </Router>
-    // <RouterProvider router={pokemonRoutes}/>
-  );
-};
-
-export default PokemonContainer;
+     // <RouterProvider router={pokemonRoutes}/>

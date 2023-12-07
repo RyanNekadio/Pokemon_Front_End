@@ -1,5 +1,5 @@
 
-const Kanto = ({pokemon}) => {
+const Cards = ({pokemon}) => {
 
     return (
         <article>
@@ -9,4 +9,4 @@ const Kanto = ({pokemon}) => {
     );
 }
 
-export default Kanto;
+export default Cards;
