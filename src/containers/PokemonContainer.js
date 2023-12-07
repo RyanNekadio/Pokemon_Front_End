@@ -9,18 +9,23 @@ const PokemonContainer = () => {
   const [sets, setSets] = useState([]);
   const [selectedSet, setSelectedSet] = useState('');
 
-  useEffect(() => {
-    const fetchData = async () => {
+  // Fetch the data
+  const fetchData = async () => {
       const cardsResponse = await fetch('https://api.pokemontcg.io/v2/cards');
       const cardsData = await cardsResponse.json();
       setPokemon(cardsData.data); 
+  }
 
+  // Fetch the sets data
+  const fetchSetsData = async () => {
       const setsResponse = await fetch('https://api.pokemontcg.io/v2/sets');
       const setsData = await setsResponse.json();
       setSets(setsData.data);
-    };
+  }
 
+  useEffect(() => {
     fetchData();
+    fetchSetsData();
   }, []);
 
   const handleSelectedSet = (set) => {
