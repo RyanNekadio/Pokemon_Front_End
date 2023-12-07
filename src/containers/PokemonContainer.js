@@ -57,6 +57,8 @@ const PokemonContainer = () => {
     <Cards key={pokemon.id} pokemon={pokemon} />
   ));
 
+    
+
   return (
     <Router>
       <>
@@ -71,6 +73,9 @@ const PokemonContainer = () => {
         </Routes>
       </>
     </Router>
+
+    // <RouterProvider router={pokemonRoutes}/>
+
   );
 };
 
@@ -90,21 +95,6 @@ export default PokemonContainer;
   // ));
 
 
-  // Router
-  // const pokemonRoutes = createBrowserRouter ([
-  //   {
-  //     // Home button 
-  //     path: "/",
-  //     element: <Home />,
-  //     // Children to insert other parts 
-  //     children: [
-  //       {
-  //         path: "/sets",
-  //         element: <CardsList pokemons={pokemon} sets={sets} onSelect={handleSelectedSet} 
-  //         /> 
-  //       }
-  //     ]
-  //   }
-  // ])
+
 
      // <RouterProvider router={pokemonRoutes}/>

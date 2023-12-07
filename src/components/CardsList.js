@@ -1,5 +1,6 @@
 import Cards from "./Cards";
 import { Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const CardsList = ({pokemon, onSelect, setOptions, onChange}) => {
 
