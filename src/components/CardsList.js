@@ -2,7 +2,7 @@ import { useState } from "react";
 import Kanto from "./Kanto";
 import { Link } from "react-router-dom";
 
-const CardsList = ({ sets, pokemons, onSelect }) => {
+const CardsList = ({ sets, pokemons, onSelect, pokemonRoutes }) => {
   const [selectedSet, setSelectedSet] = useState('');
 
   const handleSetChange = (event) => {
@@ -11,7 +11,11 @@ const CardsList = ({ sets, pokemons, onSelect }) => {
     onSelect(value); // Pass the selected set back to the parent component
   };
 
-  const setOptions = sets.map((set) => (
+  const setsWithPokemon = sets.filter((set) => {
+    return pokemons.some(pokemon => pokemon.set.id === set.id)
+  })
+  
+  const setOptions = setsWithPokemon.map((set) => (
     <option key={set.id} value={set.id}>
       {set.name}
     </option>

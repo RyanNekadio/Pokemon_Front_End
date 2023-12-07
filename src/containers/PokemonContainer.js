@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import Home from "../components/Home";
 import CardsList from "../components/CardsList";
 import PokemonWorldForm from "../components/PokemonWorldForm"; // Import the PokemonWorldForm component
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; //previous import
+// import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const PokemonContainer = () => {
   const [pokemon, setPokemon] = useState([]); 
@@ -32,6 +33,26 @@ const PokemonContainer = () => {
     setSelectedSet(set);
   };
 
+  // Router
+  // const pokemonRoutes = createBrowserRouter ([
+  //   {
+  //     // Home button 
+  //     path: "/",
+  //     element: <Home />,
+  //     // Children to insert other parts 
+  //     children: [
+  //       {
+  //         path: "/sets",
+  //         element: <CardsList pokemons={pokemon} sets={sets} onSelect={handleSelectedSet} 
+  //         /> 
+  //       }
+  //     ]
+  //   }
+  // ])
+
+
+
+
   return (
     <Router>
       <>
@@ -49,6 +70,7 @@ const PokemonContainer = () => {
         </Routes>
       </>
     </Router>
+    // <RouterProvider router={pokemonRoutes}/>
   );
 };
 
